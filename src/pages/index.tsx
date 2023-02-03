@@ -20,7 +20,7 @@ export default function Home() {
 	}
 
 	return (
-		<div className='w-screen h-screen flex items-center justify-center bg-[#fff] dark:bg-blueDark darkT'>
+		<div className='w-screen h-screen flex items-center justify-center bg-[#fff] dark:bg-blueDark transition-colors duration-500'>
 			<button
 				className='absolute top-2 left-2 dark:text-white darkT'
 				onClick={switchTheme}
@@ -35,7 +35,7 @@ export default function Home() {
 				<h1 className='font-semibold text-2xl text-magentaDark font-Blinker dark:text-white darkT'>
 					Weather App
 				</h1>
-				<section className='flex flex-col items-center gap-4 w-full font-Inter text-xs relative'>
+				<section className='flex flex-col items-center gap-4 w-full font-Inter text-xs relative sm:text-sm'>
 					{isOnSearch && (
 						<motion.div
 							className='h-10 w-full dark:bg-[#D3DEDE] bg-grayLight flex items-center justify-center absolute'
