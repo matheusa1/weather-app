@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { ImSearch } from 'react-icons/im'
 
+import { motion } from 'framer-motion'
+
 export default function Home() {
 	const [isOnSearch, setIsOnSearch] = useState<boolean>(false)
 
@@ -25,15 +27,24 @@ export default function Home() {
 			>
 				Trocar tema
 			</button>
-			<div className='w-[80%] sm:w-[493px] p-14 flex flex-col items-center gap-12 shadow-2xl rounded-lg'>
+			<div
+				className={`w-[80%] sm:w-[493px] p-14 flex flex-col items-center shadow-2xl rounded-lg darkT ${
+					isOnSearch ? 'gap-20' : 'gap-12'
+				}`}
+			>
 				<h1 className='font-semibold text-2xl text-magentaDark font-Blinker dark:text-white darkT'>
 					Weather App
 				</h1>
 				<section className='flex flex-col items-center gap-4 w-full font-Inter text-xs relative'>
 					{isOnSearch && (
-						<div className='h-10 w-full bg-grayLight flex items-center justify-center absolute top-0 left-0 darkT  -translate-y-14'>
+						<motion.div
+							className='h-10 w-full dark:bg-[#D3DEDE] bg-grayLight flex items-center justify-center absolute'
+							initial={{ top: 0, left: 0 }}
+							animate={{ top: -50, left: 0 }}
+							transition={{ duration: 0.2 }}
+						>
 							Loading...
-						</div>
+						</motion.div>
 					)}
 					<div className='flex relative w-full'>
 						<input
@@ -53,7 +64,10 @@ export default function Home() {
 						or
 						<div className={divisorClassName} />
 					</div>
-					<button className='p-3 text-white transition-all duration-300 bg-brown w-full drop-shadow-brownShadow hover:bg-brownHover active:bg-black dark:bg-blue dark:shadow-lg dark:drop-shadow-none dark:hover:bg-blueHover dark:active:bg-black'>
+					<button
+						className='p-3 text-white transition-all duration-300 bg-brown w-full drop-shadow-brownShadow hover:bg-brownHover active:bg-black dark:bg-blue dark:shadow-lg dark:drop-shadow-none dark:hover:bg-blueHover dark:active:bg-black'
+						onClick={() => setIsOnSearch(!isOnSearch)}
+					>
 						Use device location
 					</button>
 				</section>
