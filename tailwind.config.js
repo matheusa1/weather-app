@@ -27,6 +27,12 @@ module.exports = {
 				greenHover: '#003B3E',
 				grayLight: '#EAEAEA',
 			},
+			backgroundImage: {
+				mountainNight: 'linear-gradient(180deg, #231440 0%, #685AAB 127.24%)',
+			},
+			scale: {
+				'-100': '-1',
+			},
 		},
 	},
 	plugins: [],

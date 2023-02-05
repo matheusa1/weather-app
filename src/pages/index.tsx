@@ -1,7 +1,11 @@
 import { useState } from 'react'
-import { ImSearch } from 'react-icons/im'
-
+import Image from 'next/image'
 import { motion } from 'framer-motion'
+
+import { ImSearch } from 'react-icons/im'
+import { GiArrowDunk } from 'react-icons/gi'
+
+import Mountain from '../assets/mountain.svg'
 
 export default function Home() {
 	const [isOnSearch, setIsOnSearch] = useState<boolean>(false)
@@ -9,6 +13,7 @@ export default function Home() {
 	const [loadingStatus, setLoadingStatus] = useState<
 		'error' | 'success' | 'loading'
 	>('loading')
+	const [night, setNight] = useState<boolean>(true)
 
 	const divisorClassName = 'w-20 h-[2px] bg-skin dark:bg-grayLight darkT'
 
@@ -16,10 +21,11 @@ export default function Home() {
 		if (localStorage.theme === 'dark') {
 			document.documentElement.classList.remove('dark')
 			localStorage.removeItem('theme')
-			console.log('a')
+			setNight(false)
 		} else {
 			document.documentElement.classList.add('dark')
 			localStorage.theme = 'dark'
+			setNight(true)
 		}
 	}
 
@@ -50,15 +56,15 @@ export default function Home() {
 	}
 
 	return (
-		<div className='w-screen h-screen flex items-center justify-center bg-white dark:bg-blueDark transition-colors duration-500'>
-			<button
+		<div className='max-w-screen h-screen flex flex-col justify-between sm:justify-center items-center bg-white dark:bg-blueDark transition-colors duration-500'>
+			{/* <button
 				className='absolute top-2 left-2 dark:text-white darkT'
 				onClick={switchTheme}
 			>
 				Trocar tema
-			</button>
+			</button> */}
 			<div
-				className={`w-[80%] sm:w-[493px] p-14 flex flex-col items-center shadow-2xl rounded-lg darkT ${
+				className={`mt-10 sm:mt-0 w-[80%] sm:w-[493px] p-14 flex flex-col items-center shadow-2xl rounded-lg darkT ${
 					isOnSearch ? 'gap-20' : 'gap-12'
 				}`}
 			>
@@ -107,6 +113,28 @@ export default function Home() {
 						Use device location
 					</button>
 				</section>
+			</div>
+			<div
+				onClick={switchTheme}
+				id='switchTheme'
+				className='w-full h-1/6'
+			>
+				<label
+					htmlFor='switchTheme'
+					className='fixed sm:absolute right-2 bottom-64 xl:bottom-[400px] lg:left-20 lg:bottom-[300px] sm:bottom-60 sm:left-48 sm z-50 flex gap-4 darkT dark:text-white text-black items-end'
+				>
+					<GiArrowDunk className='w-6 h-6 xl:w-10 xl:h-10 sm:w-8 sm:h-8 -scale-x-100' />
+					Switch Theme
+				</label>
+				<Image
+					className='z-50 fixed sm:absolute bottom-0 left-0 xl:w-auto lg:w-64 sm:w-56 w-72'
+					src={Mountain}
+					alt={'Mountain'}
+				/>
+				<div className='w-72 h-72 -left-3 dark:bg-mountainNight bg-blue-300 transition-all duration-1000 ease-in-out xl:w-96 xl:h-96 lg:w-72 lg:h-72 sm:absolute fixed bottom-0 xl:-left-20 lg:-left-10 sm:w-64 sm:h-64 sm:-left-5 rounded-full' />
+				<div
+					className={`w-20 h-20 left-40 bottom-40 dark:left-12 dark:bottom-24 xl:w-24 xl:h-24 lg:w-16 lg:h-16 lg:bottom-44 lg:left-32 sm:w-14 sm:h-14 dark:sm:bottom-[4.5rem] dark:sm:left-10 dark:lg:bottom-[5.5rem] dark:lg:left-10 sm:bottom-40 sm:left-32 rounded-full fixed sm:absolute transition-all ease-in-out duration-1000 dark:xl:bottom-32 dark:xl:left-14 dark:bg-[#FB6849] xl:bottom-60 dark:shadow-orange-400 bg-yellow-400 shadow-yellow-300 shadow-lg `}
+				/>
 			</div>
 		</div>
 	)
