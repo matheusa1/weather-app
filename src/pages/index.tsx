@@ -121,19 +121,19 @@ export default function Home() {
 			>
 				<label
 					htmlFor='switchTheme'
-					className='fixed sm:absolute left-52 bottom-96 xl:bottom-[400px] lg:left-20 lg:bottom-[300px] sm:bottom-60 sm:left-48 sm z-50 flex gap-4 darkT dark:text-white text-black items-end'
+					className='fixed sm:absolute right-2 bottom-64 xl:bottom-[400px] lg:left-20 lg:bottom-[300px] sm:bottom-60 sm:left-48 sm z-50 flex gap-4 darkT dark:text-white text-black items-end'
 				>
-					<GiArrowDunk className='xl:w-10 xl:h-10 sm:w-8 sm:h-8 -scale-x-100' />
+					<GiArrowDunk className='w-6 h-6 xl:w-10 xl:h-10 sm:w-8 sm:h-8 -scale-x-100' />
 					Switch Theme
 				</label>
 				<Image
-					className='z-50 fixed sm:absolute bottom-0 left-0 xl:w-auto lg:w-64 sm:w-56 w-80'
+					className='z-50 fixed sm:absolute bottom-0 left-0 xl:w-auto lg:w-64 sm:w-56 w-72'
 					src={Mountain}
 					alt={'Mountain'}
 				/>
-				<div className='w-96 h-96 -left-10 dark:bg-mountainNight bg-blue-300 transition-all duration-1000 ease-in-out xl:w-96 xl:h-96 lg:w-72 lg:h-72 sm:absolute fixed bottom-0 xl:-left-20 lg:-left-10 sm:w-64 sm:h-64 sm:-left-5 rounded-full' />
+				<div className='w-72 h-72 -left-3 dark:bg-mountainNight bg-blue-300 transition-all duration-1000 ease-in-out xl:w-96 xl:h-96 lg:w-72 lg:h-72 sm:absolute fixed bottom-0 xl:-left-20 lg:-left-10 sm:w-64 sm:h-64 sm:-left-5 rounded-full' />
 				<div
-					className={`w-20 h-20 left-52 bottom-60 dark:left-14 dark:bottom-28 xl:w-24 xl:h-24 lg:w-16 lg:h-16 lg:bottom-44 lg:left-32 sm:w-14 sm:h-14 dark:sm:bottom-[4.5rem] dark:sm:left-10 dark:lg:bottom-[5.5rem] dark:lg:left-10 sm:bottom-40 sm:left-32 rounded-full fixed sm:absolute transition-all ease-in-out duration-1000 dark:xl:bottom-32 dark:xl:left-14 dark:bg-[#FB6849] xl:bottom-60 dark:shadow-orange-400 bg-yellow-400 shadow-yellow-300 shadow-lg `}
+					className={`w-20 h-20 left-40 bottom-40 dark:left-12 dark:bottom-24 xl:w-24 xl:h-24 lg:w-16 lg:h-16 lg:bottom-44 lg:left-32 sm:w-14 sm:h-14 dark:sm:bottom-[4.5rem] dark:sm:left-10 dark:lg:bottom-[5.5rem] dark:lg:left-10 sm:bottom-40 sm:left-32 rounded-full fixed sm:absolute transition-all ease-in-out duration-1000 dark:xl:bottom-32 dark:xl:left-14 dark:bg-[#FB6849] xl:bottom-60 dark:shadow-orange-400 bg-yellow-400 shadow-yellow-300 shadow-lg `}
 				/>
 			</div>
 		</div>
