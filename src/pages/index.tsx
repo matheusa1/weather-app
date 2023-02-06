@@ -7,6 +7,7 @@ import { GiArrowDunk } from 'react-icons/gi'
 
 import Mountain from '../assets/mountain.svg'
 import { useRouter } from 'next/router'
+import { switchTheme } from './utils/switchTheme'
 
 export default function Home() {
 	const [isOnSearch, setIsOnSearch] = useState<boolean>(false)
@@ -18,16 +19,6 @@ export default function Home() {
 	const router = useRouter()
 
 	const divisorClassName = 'w-20 h-[2px] bg-skin dark:bg-grayLight darkT'
-
-	const switchTheme = () => {
-		if (localStorage.theme === 'dark') {
-			document.documentElement.classList.remove('dark')
-			localStorage.removeItem('theme')
-		} else {
-			document.documentElement.classList.add('dark')
-			localStorage.theme = 'dark'
-		}
-	}
 
 	const searchLocation = () => {
 		setText('Loading...')
