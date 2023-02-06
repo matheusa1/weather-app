@@ -44,7 +44,7 @@ const Weather = (): ReactElement => {
 
 	return (
 		<div className='w-screen h-screen dark:bg-blueDark bg-whitePrimary darkT'>
-			{weather && cityName ? (
+			{weather ? (
 				<>
 					<div className='w-full flex justify-between dark:text-white text-magentaDark darkT'>
 						<button onClick={switchTheme}>switch theme</button>
