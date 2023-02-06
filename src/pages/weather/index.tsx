@@ -12,7 +12,7 @@ import { WeatherType } from '@/types'
 import { GetIcon, iconWeather } from '../../utils/iconWeather'
 
 const Weather = (): ReactElement => {
-	const [cityName, setCityName] = React.useState<string>('')
+	const [cityName, setCityName] = React.useState<string>('ajustando ainda')
 	const [weather, setWeather] = React.useState<WeatherType>()
 
 	const hour = new Date().getHours()
@@ -28,12 +28,12 @@ const Weather = (): ReactElement => {
 			const { data: weatherData } = await Axios.get(
 				`https://api.open-meteo.com/v1/forecast?latitude=-24.04&longitude=-52.38&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,weathercode&timezone=America%2FSao_Paulo&start_date=2023-02-06&end_date=2023-02-06`
 			)
-			const { data: cityName } = await Axios.get(
-				`http://geodb-free-service.wirefreethought.com/v1/geo/cities?limit=5&offset=0&location=${lat}${lon}`
-			)
+			// const { data: cityName } = await Axios.get(
+			// 	`http://geodb-free-service.wirefreethought.com/v1/geo/cities?limit=5&offset=0&location=${lat}${lon}`
+			// )
 			console.log(weatherData)
 			setWeather(weatherData)
-			setCityName(cityName.data[0].city)
+			// setCityName(cityName.data[0].city)
 		}
 	}
 
