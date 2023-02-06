@@ -7,7 +7,7 @@ import { GiArrowDunk } from 'react-icons/gi'
 
 import Mountain from '../assets/mountain.svg'
 import { useRouter } from 'next/router'
-import { switchTheme } from './utils/switchTheme'
+import { switchTheme } from '../utils/switchTheme'
 
 export default function Home() {
 	const [isOnSearch, setIsOnSearch] = useState<boolean>(false)

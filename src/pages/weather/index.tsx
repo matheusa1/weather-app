@@ -1,7 +1,7 @@
 import { IconTitleSub } from '@/components/IconTitleSub'
 import { useRouter } from 'next/router'
 import React, { ReactElement, useEffect } from 'react'
-import { switchTheme } from '../utils/switchTheme'
+import { switchTheme } from '../../utils/switchTheme'
 import Axios from 'axios'
 
 import { FaTemperatureLow } from 'react-icons/fa'
@@ -9,7 +9,7 @@ import { RiContrastDrop2Fill } from 'react-icons/ri'
 import { BiArrowBack } from 'react-icons/bi'
 import { HiOutlineLocationMarker } from 'react-icons/hi'
 import { WeatherType } from '@/types'
-import { GetIcon, iconWeather } from '../utils/iconWeather'
+import { GetIcon, iconWeather } from '../../utils/iconWeather'
 
 const Weather = (): ReactElement => {
 	const [cityName, setCityName] = React.useState<string>('')
