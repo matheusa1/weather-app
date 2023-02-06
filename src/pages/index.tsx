@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
@@ -6,6 +6,7 @@ import { ImSearch } from 'react-icons/im'
 import { GiArrowDunk } from 'react-icons/gi'
 
 import Mountain from '../assets/mountain.svg'
+import { useRouter } from 'next/router'
 
 export default function Home() {
 	const [isOnSearch, setIsOnSearch] = useState<boolean>(false)
@@ -13,7 +14,8 @@ export default function Home() {
 	const [loadingStatus, setLoadingStatus] = useState<
 		'error' | 'success' | 'loading'
 	>('loading')
-	const [night, setNight] = useState<boolean>(true)
+
+	const router = useRouter()
 
 	const divisorClassName = 'w-20 h-[2px] bg-skin dark:bg-grayLight darkT'
 
@@ -21,11 +23,9 @@ export default function Home() {
 		if (localStorage.theme === 'dark') {
 			document.documentElement.classList.remove('dark')
 			localStorage.removeItem('theme')
-			setNight(false)
 		} else {
 			document.documentElement.classList.add('dark')
 			localStorage.theme = 'dark'
-			setNight(true)
 		}
 	}
 
@@ -36,33 +36,33 @@ export default function Home() {
 		setIsOnSearch(true)
 	}
 
-	const getLocation = () => {
+	const getLocation = async () => {
 		setText('Loading...')
 		setLoadingStatus('loading')
+		setIsOnSearch(true)
 
-		navigator.geolocation.getCurrentPosition(
+		await navigator.geolocation.getCurrentPosition(
 			(location) => {
-				console.log(location)
 				setText('Success!')
 				setLoadingStatus('success')
+
+				router.push({
+					pathname: '/weather',
+					query: {
+						lat: location.coords.latitude,
+						lon: location.coords.longitude,
+					},
+				})
 			},
 			(e) => {
 				setText(e.message)
 				setLoadingStatus('error')
 			}
 		)
-
-		setIsOnSearch(true)
 	}
 
 	return (
 		<div className='max-w-screen h-screen flex flex-col justify-between sm:justify-center items-center bg-white dark:bg-blueDark transition-colors duration-500'>
-			{/* <button
-				className='absolute top-2 left-2 dark:text-white darkT'
-				onClick={switchTheme}
-			>
-				Trocar tema
-			</button> */}
 			<div
 				className={`mt-10 sm:mt-0 w-[80%] sm:w-[493px] p-14 flex flex-col items-center shadow-2xl rounded-lg darkT ${
 					isOnSearch ? 'gap-20' : 'gap-12'
@@ -117,11 +117,11 @@ export default function Home() {
 			<div
 				onClick={switchTheme}
 				id='switchTheme'
-				className='w-full h-1/6'
+				className='h-1/6'
 			>
 				<label
 					htmlFor='switchTheme'
-					className='fixed sm:absolute right-2 bottom-64 xl:bottom-[400px] lg:left-20 lg:bottom-[300px] sm:bottom-60 sm:left-48 sm z-50 flex gap-4 darkT dark:text-white text-black items-end'
+					className='fixed w-fit sm:absolute right-2 bottom-64 xl:bottom-[400px] lg:left-20 lg:bottom-[300px] sm:bottom-60 sm:left-48 sm z-50 flex gap-4 darkT dark:text-white text-black items-end'
 				>
 					<GiArrowDunk className='w-6 h-6 xl:w-10 xl:h-10 sm:w-8 sm:h-8 -scale-x-100' />
 					Switch Theme
