@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.darkT {
+		@apply duration-500 transition-all ease-in-out;
+	}
+}
