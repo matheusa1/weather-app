@@ -33,11 +33,14 @@ const Weather = (): ReactElement => {
 				url: 'https://wft-geo-db.p.rapidapi.com/v1/geo/cities',
 				params: { location: `${lat}${lon}` },
 				headers: {
-					'X-RapidAPI-Key':
-						'6b9a0e0155mshc50e632587e1934p184af4jsn9db6ad7f95d5',
-					'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com',
+					'X-RapidAPI-Key': process.env.RapidAPIKey,
+					'X-RapidAPI-Host': process.env.RapidAPIHost,
 				},
 			}
+			
+			console.log(process.env.RapidAPIKey)
+			console.log(process.env.RapidAPIHost)
+
 
 			axios
 				.request(options)
@@ -57,7 +60,7 @@ const Weather = (): ReactElement => {
 
 	return (
 		<div className='w-screen h-screen dark:bg-blueDark bg-whitePrimary darkT'>
-			{weather ? (
+			{weather && cityName ? (
 				<>
 					<div className='w-full flex justify-between dark:text-white text-magentaDark darkT'>
 						<button onClick={switchTheme}>switch theme</button>
