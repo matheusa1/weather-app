@@ -7,6 +7,7 @@ import { GiArrowDunk } from 'react-icons/gi'
 
 import Mountain from '../assets/mountain.svg'
 import { useRouter } from 'next/router'
+import { switchTheme } from '../utils/switchTheme'
 
 export default function Home() {
 	const [isOnSearch, setIsOnSearch] = useState<boolean>(false)
@@ -14,20 +15,11 @@ export default function Home() {
 	const [loadingStatus, setLoadingStatus] = useState<
 		'error' | 'success' | 'loading'
 	>('loading')
+	const [inputData, setInputData] = useState<string>('')
 
 	const router = useRouter()
 
 	const divisorClassName = 'w-20 h-[2px] bg-skin dark:bg-grayLight darkT'
-
-	const switchTheme = () => {
-		if (localStorage.theme === 'dark') {
-			document.documentElement.classList.remove('dark')
-			localStorage.removeItem('theme')
-		} else {
-			document.documentElement.classList.add('dark')
-			localStorage.theme = 'dark'
-		}
-	}
 
 	const searchLocation = () => {
 		setText('Loading...')
@@ -93,6 +85,7 @@ export default function Home() {
 							className='dark:bg-grayLight dark:hover:bg-gray-300 dark:focus:bg-grayLight bg-pinkExtraLight sm:text-center shadow-lg px-2 h-10 text-left w-full hover:shadow-xl focus:shadow-lg darkT hover:bg-pinkLight focus:bg-pinkExtraLight outline-none'
 							type='text'
 							placeholder='Enter city name'
+							defaultValue={inputData}
 						/>
 						<button
 							className='absolute top-0 right-0 p-3 bg-magentaLight transition-all duration-300 hover:bg-magentaDark active:bg-black dark:bg-greenPrimary dark:hover:bg-greenHover dark:active:bg-black'
