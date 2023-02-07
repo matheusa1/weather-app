@@ -37,10 +37,6 @@ const Weather = (): ReactElement => {
 					'X-RapidAPI-Host': process.env.RapidAPIHost,
 				},
 			}
-			
-			console.log(process.env.RapidAPIKey)
-			console.log(process.env.RapidAPIHost)
-
 
 			axios
 				.request(options)
