@@ -2,7 +2,7 @@ import { IconTitleSub } from '@/components/IconTitleSub'
 import { useRouter } from 'next/router'
 import React, { ReactElement, useEffect } from 'react'
 import { switchTheme } from '../../utils/switchTheme'
-import Axios from 'axios'
+import axios from 'axios'
 
 import { FaTemperatureLow } from 'react-icons/fa'
 import { RiContrastDrop2Fill } from 'react-icons/ri'
@@ -25,15 +25,28 @@ const Weather = (): ReactElement => {
 
 	const getData = async () => {
 		if (lat && lon) {
-			const { data: weatherData } = await Axios.get(
+			const { data: weatherData } = await axios.get(
 				`https://api.open-meteo.com/v1/forecast?latitude=-24.04&longitude=-52.38&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,weathercode&timezone=America%2FSao_Paulo&start_date=2023-02-06&end_date=2023-02-06`
 			)
-			// const { data: cityName } = await Axios.get(
-			// 	`http://geodb-free-service.wirefreethought.com/v1/geo/cities?limit=5&offset=0&location=${lat}${lon}`
-			// )
-			console.log(weatherData)
+			const options = {
+				method: 'GET',
+				url: 'https://wft-geo-db.p.rapidapi.com/v1/geo/cities',
+				params: { location: `${lat}${lon}` },
+				headers: {
+					'X-RapidAPI-Key':
+						'6b9a0e0155mshc50e632587e1934p184af4jsn9db6ad7f95d5',
+					'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com',
+				},
+			}
+
+			axios
+				.request(options)
+				.then(function (response) {
+					setCityName(response.data.data[0].city)
+				})
+				.catch(function (error) {})
+
 			setWeather(weatherData)
-			// setCityName(cityName.data[0].city)
 		}
 	}
 
