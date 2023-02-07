@@ -21,3 +21,18 @@ export type WeatherType = {
 		weathercode: number[]
 	}
 }
+
+export type CitiesType = {
+	city: string
+	country: string
+	countrycode: string
+	id: number
+	latitude: number
+	longitude: number
+	name: string
+	population: number
+	region: string
+	regionCode: string
+	type: string
+	wikiDataId: string
+}

@@ -25,8 +25,12 @@ const Weather = (): ReactElement => {
 
 	const getData = async () => {
 		if (lat && lon) {
+			const date = new Date().toISOString()
+			console.log(date.split('T')[0])
 			const { data: weatherData } = await axios.get(
-				`https://api.open-meteo.com/v1/forecast?latitude=-24.04&longitude=-52.38&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,weathercode&timezone=America%2FSao_Paulo&start_date=2023-02-06&end_date=2023-02-06`
+				`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,weathercode&timezone=America%2FSao_Paulo&start_date=${
+					date.split('T')[0]
+				}&end_date=${date.split('T')[0]}`
 			)
 			const options = {
 				method: 'GET',

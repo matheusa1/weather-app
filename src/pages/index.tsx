@@ -8,6 +8,11 @@ import { GiArrowDunk } from 'react-icons/gi'
 import Mountain from '../assets/mountain.svg'
 import { useRouter } from 'next/router'
 import { switchTheme } from '../utils/switchTheme'
+import { DebounceInput } from 'react-debounce-input'
+
+import * as Popover from '@radix-ui/react-popover'
+import axios from 'axios'
+import { CitiesType } from '@/types'
 
 export default function Home() {
 	const [isOnSearch, setIsOnSearch] = useState<boolean>(false)
@@ -16,6 +21,9 @@ export default function Home() {
 		'error' | 'success' | 'loading'
 	>('loading')
 	const [inputData, setInputData] = useState<string>('')
+	const [openPopover, setOpenPopover] = useState<boolean>(false)
+	const [results, setResults] = useState<CitiesType[]>([])
+	const [city, setCity] = useState<CitiesType>()
 
 	const router = useRouter()
 
@@ -26,6 +34,23 @@ export default function Home() {
 		setLoadingStatus('loading')
 
 		setIsOnSearch(true)
+
+		if (!city) {
+			setText('Please select a city')
+			setLoadingStatus('error')
+			return
+		}
+
+		setText('Success!')
+		setLoadingStatus('success')
+
+		router.push({
+			pathname: '/weather',
+			query: {
+				lat: city.latitude,
+				lon: city.longitude,
+			},
+		})
 	}
 
 	const getLocation = async () => {
@@ -53,10 +78,46 @@ export default function Home() {
 		)
 	}
 
+	const getCities = async () => {
+		if (inputData.length <= 2) {
+			setOpenPopover(false)
+			return
+		}
+
+		const options = {
+			method: 'GET',
+			url: 'https://wft-geo-db.p.rapidapi.com/v1/geo/cities',
+			params: { namePrefix: inputData },
+			headers: {
+				'X-RapidAPI-Key': process.env.RapidAPIKey,
+				'X-RapidAPI-Host': process.env.RapidAPIHost,
+			},
+		}
+
+		axios
+			.request(options)
+			.then(function (response) {
+				setResults(response.data.data)
+				setOpenPopover(true)
+			})
+			.catch(function (error) {})
+	}
+
+	const onCityClick = (e: string, city: CitiesType) => {
+		setOpenPopover(false)
+		setInputData(e)
+		setCity(city)
+	}
+
+	useEffect(() => {
+		getCities()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [inputData])
+
 	return (
 		<div className='max-w-screen h-screen flex flex-col justify-between sm:justify-center items-center bg-white dark:bg-blueDark transition-colors duration-500'>
 			<div
-				className={`mt-10 sm:mt-0 w-[80%] sm:w-[493px] p-14 flex flex-col items-center shadow-2xl rounded-lg darkT ${
+				className={`mt-10 sm:mt-0 w-[80%] sm:w-[493px] p-4 sm:p-14 flex flex-col items-center shadow-2xl rounded-lg darkT ${
 					isOnSearch ? 'gap-20' : 'gap-12'
 				}`}
 			>
@@ -80,15 +141,47 @@ export default function Home() {
 							{text}
 						</motion.div>
 					)}
-					<div className='flex relative w-full'>
-						<input
-							className='dark:bg-grayLight dark:hover:bg-gray-300 dark:focus:bg-grayLight bg-pinkExtraLight sm:text-center shadow-lg px-2 h-10 text-left w-full hover:shadow-xl focus:shadow-lg darkT hover:bg-pinkLight focus:bg-pinkExtraLight outline-none'
-							type='text'
-							placeholder='Enter city name'
-							defaultValue={inputData}
-						/>
+					<div className='flex w-full'>
+						<Popover.Root open={openPopover}>
+							<Popover.Anchor className='w-full'>
+								<DebounceInput
+									minLength={2}
+									debounceTimeout={700}
+									onChange={(e) => setInputData(e.target.value)}
+									className='dark:bg-grayLight dark:hover:bg-gray-300 dark:focus:bg-grayLight bg-pinkExtraLight sm:text-center shadow-lg px-2 h-10 text-left w-full hover:shadow-xl focus:shadow-lg darkT hover:bg-pinkLight focus:bg-pinkExtraLight outline-none'
+									type='text'
+									placeholder={'Enter city name'}
+									value={inputData}
+								/>
+							</Popover.Anchor>
+							<Popover.Portal>
+								<Popover.Content
+									onOpenAutoFocus={(e) => e.preventDefault()}
+									className='p-4 bg-pinkExtraLight dark:bg-bluePrimary w-full flex flex-col dark:text-whitePrimary rounded-xl'
+								>
+									{results.length > 0 ? (
+										results.map((city) => {
+											return (
+												<div
+													key={city.id}
+													className='p-2 rounded active:bg-black darkT'
+													onClick={() => {
+														onCityClick(city.name, city)
+													}}
+												>
+													{`${city.name} - ${city.country}`}
+												</div>
+											)
+										})
+									) : (
+										<div>Sem resultados</div>
+									)}
+									<Popover.Arrow className='dark:fill-bluePrimary fill-pinkExtraLight' />
+								</Popover.Content>
+							</Popover.Portal>
+						</Popover.Root>
 						<button
-							className='absolute top-0 right-0 p-3 bg-magentaLight transition-all duration-300 hover:bg-magentaDark active:bg-black dark:bg-greenPrimary dark:hover:bg-greenHover dark:active:bg-black'
+							className='p-3 h-10 bg-magentaLight transition-all duration-300 hover:bg-magentaDark active:bg-black dark:bg-greenPrimary dark:hover:bg-greenHover dark:active:bg-black'
 							onClick={searchLocation}
 						>
 							<ImSearch className='w-4 h-4 text-white' />
