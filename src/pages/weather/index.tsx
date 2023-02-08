@@ -65,15 +65,15 @@ const Weather = (): ReactElement => {
 					<div className='w-full flex justify-between dark:text-white text-magentaDark darkT'>
 						<button onClick={switchTheme}>switch theme</button>
 					</div>
-					<div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl w-[80%] overflow-hidden shadow-2xl'>
-						<div className='dark:text-white text-magentaDark dark:bg-[#2B4861] bg-pinkLight p-4 darkT'>
+					<div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl w-[80%] md:w-[600px] overflow-hidden shadow-2xl'>
+						<div className='dark:text-white text-magentaDark dark:bg-[#2B4861] bg-pinkLight p-4 sm:p-8 darkT'>
 							<header className='flex justify-between'>
 								<BiArrowBack
-									className='w-6 h-6 active:text-gray-300'
+									className='w-6 h-6 active:text-gray-300 sm:w-8 sm:h-8 cursor-pointer hover:bg-blueHover rounded-full darkT'
 									onClick={() => router.push('/')}
 								/>
-								<h1 className='font-bold'>Weather App</h1>
-								<div className='hidden' />
+								<h1 className='font-bold sm:text-xl'>Weather App</h1>
+								<div className='hidden sm:inline' />
 							</header>
 							<main className='flex flex-col gap-4 items-center mt-4'>
 								<div className='flex gap-2 items-center'>
@@ -98,8 +98,8 @@ const Weather = (): ReactElement => {
 								</strong>
 							</main>
 						</div>
-						<div className='flex flex-col bg-magentaDark dark:bg-bluePrimary darkT'>
-							<div className='w-full border-t-2 border-t-white flex justify-center'>
+						<div className='flex flex-col sm:flex-row bg-magentaDark dark:bg-bluePrimary darkT'>
+							<div className='w-full border-t-2 border-t-white sm:border-r-2 flex justify-center'>
 								<IconTitleSub
 									icon={<FaTemperatureLow className='w-6 h-6' />}
 									title={`${weather?.hourly.apparent_temperature[hour]} ${weather?.hourly_units.apparent_temperature}`}
