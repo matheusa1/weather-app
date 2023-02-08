@@ -117,7 +117,7 @@ export default function Home() {
   return (
     <div className="h-screen w-screen items-center bg-white transition-colors duration-500 dark:bg-blueDark sm:justify-center">
       <div
-        className={`darkT absolute top-0 left-1/2 mt-10 flex w-[80%] -translate-x-1/2 flex-col items-center rounded-lg p-4 shadow-2xl sm:mt-0 sm:w-[493px] sm:p-14 ${
+        className={`darkT absolute top-0 left-1/2 mt-10 flex w-[80%] -translate-x-1/2 flex-col items-center rounded-lg p-4 shadow-2xl sm:top-10 sm:mt-0 sm:w-[493px] sm:p-14 lg:top-1/2 lg:-translate-y-1/2 ${
           isOnSearch ? "gap-20" : "gap-12"
         }`}
       >
@@ -201,14 +201,14 @@ export default function Home() {
         </section>
       </div>
       <div
-        className="absolute bottom-0 w-full bg-red-500"
+        className="absolute bottom-0 w-full bg-red-500 cursor-pointer"
         onClick={switchTheme}
       >
         <div className="relative w-full">
-          <div className="fixed -bottom-10 -left-20 h-80 w-80 rounded-full bg-blue-400 transition-all duration-1000 dark:bg-mountainNight" />
-          <div className="fixed bottom-40 left-28 h-20 w-20 rounded-full bg-yellow-500 shadow-lg shadow-yellow-500 dark:shadow-orange-500 transition-all duration-1000 dark:bottom-20 dark:left-10 dark:bg-orange-500" />
+          <div className="fixed -bottom-10 -left-20 h-80 w-80 rounded-full bg-blue-400 transition-all duration-1000 dark:bg-mountainNight sm:-left-10 sm:h-72 sm:w-72 xl:h-80 xl:w-80 2xl:h-96 2xl:w-96" />
+          <div className="fixed bottom-40 left-28 h-20 w-20 rounded-full bg-yellow-500 shadow-lg shadow-yellow-500 transition-all duration-1000 dark:bottom-20 dark:left-10 dark:bg-orange-500 dark:shadow-orange-500 sm:bottom-36 xl:bottom-44 xl:left-32 xl:dark:bottom-24 2xl:bottom-56 2xl:left-48 2xl:dark:bottom-28 2xl:dark:left-14" />
           <Image
-            className="fixed -bottom-0 z-10 w-64 flex-shrink-0"
+            className="fixed -bottom-[1px] z-10 w-64 flex-shrink-0 xl:w-72 2xl:w-80"
             src={Mountain}
             alt={"mountain"}
           />
