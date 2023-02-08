@@ -13,10 +13,8 @@ import { AiFillGithub } from "react-icons/ai";
 import { WeatherType } from "@/types";
 import { GetIcon, iconWeather } from "../../utils/iconWeather";
 
-import UseAnimations from "react-useanimations";
-import loading2 from "react-useanimations/lib/loading2";
-
 import Link from "next/link";
+import { GuardSpinner } from "react-spinners-kit";
 
 const Weather = (): ReactElement => {
   const [cityName, setCityName] = React.useState<string>();
@@ -67,7 +65,7 @@ const Weather = (): ReactElement => {
 
   return (
     <div className="darkT h-screen w-screen bg-whitePrimary dark:bg-blueDark">
-      {weather && cityName ? (
+      {weather && !cityName ? (
         <>
           <div className="darkT flex w-full justify-between p-2 text-magentaDark dark:text-white">
             <div className="flex items-center gap-2">
@@ -144,23 +142,8 @@ const Weather = (): ReactElement => {
         </>
       ) : (
         <div className="flex h-screen w-screen items-center justify-center bg-white dark:bg-blueDark">
-          <div className="flex items-center gap-2 dark:text-white">
-            <UseAnimations
-              strokeColor={
-                !localStorage?.getItem("theme") ||
-                localStorage?.getItem("theme") === "dark"
-                  ? "white"
-                  : "black"
-              }
-              fillColor={
-                !localStorage?.getItem("theme") ||
-                localStorage?.getItem("theme") === "dark"
-                  ? "white"
-                  : "black"
-              }
-              animation={loading2}
-              size={50}
-            />
+          <div className="flex items-center gap-4 dark:text-white">
+            <GuardSpinner />
             Loading...
           </div>
         </div>

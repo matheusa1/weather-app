@@ -226,7 +226,7 @@ export default function Home() {
       {firstSwitchTheme && (
         <label
           htmlFor="switchTheme"
-          className="darkT fixed bottom-40 left-20 z-20 text-center dark:text-white xl:bottom-48 2xl:bottom-56"
+          className="darkT fixed bottom-40 left-20 z-20 text-center text-white xl:bottom-48 2xl:bottom-56"
           onClick={onThemeSwitch}
         >
           Click to <br /> switch theme
