@@ -147,14 +147,14 @@ const Weather = (): ReactElement => {
           <div className="flex items-center gap-2 dark:text-white">
             <UseAnimations
               strokeColor={
-                localStorage.getItem("theme") === "dark" ||
-                !localStorage.getItem("theme")
+                !localStorage?.getItem("theme") ||
+                localStorage?.getItem("theme") === "dark"
                   ? "white"
                   : "black"
               }
               fillColor={
-                localStorage.getItem("theme") === "dark" ||
-                !localStorage.getItem("theme")
+                !localStorage?.getItem("theme") ||
+                localStorage?.getItem("theme") === "dark"
                   ? "white"
                   : "black"
               }
