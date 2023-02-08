@@ -65,7 +65,7 @@ const Weather = (): ReactElement => {
 
   return (
     <div className="darkT h-screen w-screen bg-whitePrimary dark:bg-blueDark">
-      {weather && !cityName ? (
+      {weather && cityName ? (
         <>
           <div className="darkT flex w-full justify-between p-2 text-magentaDark dark:text-white">
             <div className="flex items-center gap-2">

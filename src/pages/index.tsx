@@ -126,7 +126,7 @@ export default function Home() {
   }, [inputData]);
 
   return (
-    <div className="h-screen w-screen items-center bg-white transition-colors duration-500 dark:bg-blueDark sm:justify-center">
+    <div className="h-screen w-screen overflow-hidden items-center bg-white transition-colors duration-500 dark:bg-blueDark sm:justify-center">
       <div className="flex w-full items-center justify-end gap-1">
         <label className="hidden dark:text-white sm:inline" htmlFor="git">
           Open source code
