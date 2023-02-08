@@ -27,6 +27,8 @@ export default function Home() {
   const [results, setResults] = useState<CitiesType[]>([]);
   const [city, setCity] = useState<CitiesType>();
 
+  const [firstSwitchTheme, setFirstSwitchTheme] = useState(true);
+
   const router = useRouter();
 
   const divisorClassName = "w-20 h-[2px] bg-skin dark:bg-grayLight darkT";
@@ -111,6 +113,13 @@ export default function Home() {
     setCity(city);
   };
 
+  const onThemeSwitch = () => {
+    if (firstSwitchTheme) {
+      setFirstSwitchTheme(false);
+    }
+    switchTheme();
+  };
+
   useEffect(() => {
     getCities();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -178,7 +187,7 @@ export default function Home() {
                       return (
                         <div
                           key={city.id}
-                          className="darkT rounded p-2 active:bg-black"
+                          className="darkT cursor-pointer rounded p-2 hover:bg-pinkLight active:bg-black dark:hover:bg-blueHover dark:active:bg-black"
                           onClick={() => {
                             onCityClick(city.name, city);
                           }}
@@ -214,9 +223,19 @@ export default function Home() {
           </button>
         </section>
       </div>
+      {firstSwitchTheme && (
+        <label
+          htmlFor="switchTheme"
+          className="darkT fixed bottom-40 left-20 z-20 text-center dark:text-white xl:bottom-48 2xl:bottom-56"
+          onClick={onThemeSwitch}
+        >
+          Click to <br /> switch theme
+        </label>
+      )}
       <div
+        id="switchTheme"
         className="absolute bottom-0 w-full cursor-pointer bg-red-500"
-        onClick={switchTheme}
+        onClick={onThemeSwitch}
       >
         <div className="relative w-full">
           <div className="fixed -bottom-10 -left-20 h-80 w-80 rounded-full bg-blue-400 transition-all duration-1000 dark:bg-mountainNight sm:-left-10 sm:h-72 sm:w-72 xl:h-80 xl:w-80 2xl:h-96 2xl:w-96" />
