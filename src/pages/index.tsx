@@ -13,6 +13,8 @@ import { DebounceInput } from "react-debounce-input";
 import * as Popover from "@radix-ui/react-popover";
 import axios from "axios";
 import { CitiesType } from "@/types";
+import Link from "next/link";
+import { AiFillGithub } from "react-icons/ai";
 
 export default function Home() {
   const [isOnSearch, setIsOnSearch] = useState<boolean>(false);
@@ -116,6 +118,18 @@ export default function Home() {
 
   return (
     <div className="h-screen w-screen items-center bg-white transition-colors duration-500 dark:bg-blueDark sm:justify-center">
+      <div className="flex w-full items-center justify-end gap-1">
+        <label className="hidden dark:text-white sm:inline" htmlFor="git">
+          Open source code
+        </label>
+        <Link
+          id="git"
+          href={"https://github.com/matheusa1/weather-app"}
+          target="_blank"
+        >
+          <AiFillGithub className="darkT h-10 w-10 rounded-full p-1 text-black hover:scale-110 hover:bg-pinkLight dark:text-white dark:hover:bg-blueHover md:h-12 md:w-12" />
+        </Link>
+      </div>
       <div
         className={`darkT absolute top-0 left-1/2 mt-10 flex w-[80%] -translate-x-1/2 flex-col items-center rounded-lg p-4 shadow-2xl sm:top-10 sm:mt-0 sm:w-[493px] sm:p-14 lg:top-1/2 lg:-translate-y-1/2 ${
           isOnSearch ? "gap-20" : "gap-12"
@@ -201,7 +215,7 @@ export default function Home() {
         </section>
       </div>
       <div
-        className="absolute bottom-0 w-full bg-red-500 cursor-pointer"
+        className="absolute bottom-0 w-full cursor-pointer bg-red-500"
         onClick={switchTheme}
       >
         <div className="relative w-full">

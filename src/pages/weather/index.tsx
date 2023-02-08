@@ -4,12 +4,19 @@ import React, { ReactElement, useEffect } from "react";
 import { switchTheme } from "../../utils/switchTheme";
 import axios from "axios";
 
-import { FaTemperatureLow } from "react-icons/fa";
+import { FaLightbulb, FaTemperatureLow } from "react-icons/fa";
 import { RiContrastDrop2Fill } from "react-icons/ri";
 import { BiArrowBack } from "react-icons/bi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
+import { AiFillGithub } from "react-icons/ai";
+
 import { WeatherType } from "@/types";
 import { GetIcon, iconWeather } from "../../utils/iconWeather";
+
+import UseAnimations from "react-useanimations";
+import loading2 from "react-useanimations/lib/loading2";
+
+import Link from "next/link";
 
 const Weather = (): ReactElement => {
   const [cityName, setCityName] = React.useState<string>();
@@ -60,20 +67,39 @@ const Weather = (): ReactElement => {
 
   return (
     <div className="darkT h-screen w-screen bg-whitePrimary dark:bg-blueDark">
-      {weather && !cityName ? (
+      {weather && cityName ? (
         <>
-          <div className="darkT flex w-full justify-between text-magentaDark dark:text-white">
-            <button onClick={switchTheme}>switch theme</button>
+          <div className="darkT flex w-full justify-between p-2 text-magentaDark dark:text-white">
+            <div className="flex items-center gap-2">
+              <button id="switchTheme" onClick={switchTheme}>
+                <FaLightbulb className="darkT h-10 w-10 rounded-full p-1 hover:scale-110 hover:bg-pinkLight dark:hover:bg-blueHover" />
+              </button>
+              <label className="hidden sm:inline" htmlFor="switchTheme">
+                Switch Theme
+              </label>
+            </div>
+            <div className="flex items-center gap-1">
+              <label className="hidden sm:inline" htmlFor="git">
+                Open source code
+              </label>
+              <Link
+                id="git"
+                href={"https://github.com/matheusa1/weather-app"}
+                target="_blank"
+              >
+                <AiFillGithub className="darkT h-10 w-10 rounded-full p-1 text-black hover:scale-110 hover:bg-pinkLight dark:text-white dark:hover:bg-blueHover md:h-12 md:w-12" />
+              </Link>
+            </div>
           </div>
           <div className="fixed top-1/2 left-1/2 w-[80%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl shadow-2xl md:w-[600px]">
             <div className="darkT bg-pinkLight p-4 text-magentaDark dark:bg-[#2B4861] dark:text-white sm:p-8">
-              <header className="flex justify-between">
+              <header className="flex items-center justify-between">
                 <BiArrowBack
-                  className="darkT h-6 w-6 cursor-pointer rounded-full hover:bg-blueHover active:text-gray-300 sm:h-8 sm:w-8"
+                  className="darkT h-6 w-6 cursor-pointer rounded-full hover:bg-magentaDark hover:text-white active:text-gray-300 dark:hover:bg-blueHover sm:h-8 sm:w-8"
                   onClick={() => router.push("/")}
                 />
                 <h1 className="font-bold sm:text-xl">Weather App</h1>
-                <div className="hidden sm:inline" />
+                <div className="hidden h-8 w-8 sm:inline" />
               </header>
               <main className="mt-4 flex flex-col items-center gap-4">
                 <div className="flex items-center gap-2">
@@ -118,9 +144,25 @@ const Weather = (): ReactElement => {
         </>
       ) : (
         <div className="flex h-screen w-screen items-center justify-center bg-white dark:bg-blueDark">
-          <span className="mr-3 h-5 w-5 animate-spin dark:text-white">
+          <div className="flex items-center gap-2 dark:text-white">
+            <UseAnimations
+              strokeColor={
+                localStorage.getItem("theme") === "dark" ||
+                !localStorage.getItem("theme")
+                  ? "white"
+                  : "black"
+              }
+              fillColor={
+                localStorage.getItem("theme") === "dark" ||
+                !localStorage.getItem("theme")
+                  ? "white"
+                  : "black"
+              }
+              animation={loading2}
+              size={50}
+            />
             Loading...
-          </span>
+          </div>
         </div>
       )}
     </div>
